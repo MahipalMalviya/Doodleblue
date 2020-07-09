@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mahipal.doodleblue.FoodItemAction
 import com.mahipal.doodleblue.R
 import com.mahipal.doodleblue.mvvm.model.FoodCartDetails
+import com.mahipal.doodleblue.mvvm.model.FoodDetails
 import com.mahipal.doodleblue.mvvm.viewModel.FoodViewModel
 import kotlinx.android.synthetic.main.activity_food_cart.*
 
@@ -32,17 +33,20 @@ class FoodCartFragment: Fragment() {
 
         foodViewModel = (activity as MainActivity).foodViewModel
 
-        foodViewModel?.foodCartDetails?.observe(activity as MainActivity, Observer { foodCartDetails ->
+        foodViewModel?.foodCartDetails?.observe(this, Observer { foodCartDetails ->
             setDataToView(foodCartDetails)
         })
     }
 
     private fun setDataToView(foodCartDetails: FoodCartDetails?) {
         foodCartDetails?.foodList?.let {
+            val foodList = it.filter { foodDetails ->
+                foodDetails.foodQuantity > 0
+            } as ArrayList<FoodDetails>
 
             rv_food_cart_list.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
 
-            foodCartAdapter = FoodCartAdapter(it) { action, position ->
+            foodCartAdapter = FoodCartAdapter(foodList) { action, position ->
 
                 if (action.equals(FoodItemAction.ADD.name,true)) {
                     foodViewModel?.addQuantity(position)

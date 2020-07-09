@@ -35,7 +35,7 @@ class RestaurantFragment: Fragment() {
         foodViewModel = (activity as MainActivity).foodViewModel
         val navController = activity?.let { Navigation.findNavController(it,R.id.nav_host_frag) }
 
-        foodViewModel?.foodCartDetails?.observe(activity as MainActivity, Observer { foodCartDetails ->
+        foodViewModel?.foodCartDetails?.observe(this, Observer { foodCartDetails ->
             setDataToView(foodCartDetails)
         })
 
@@ -48,7 +48,7 @@ class RestaurantFragment: Fragment() {
     private fun setDataToView(foodCartDetails: FoodCartDetails?) {
         foodCartDetails?.foodList?.let {
 
-            rv_food_details_list.layoutManager = LinearLayoutManager(context,RecyclerView.VERTICAL,false)
+            rv_food_details_list?.layoutManager = LinearLayoutManager(context,RecyclerView.VERTICAL,false)
 
             foodDetailsAdapter = FoodDetailsAdapter(it) { action, position ->
 
@@ -58,15 +58,15 @@ class RestaurantFragment: Fragment() {
                     foodViewModel?.minusQuantity(position)
                 }
             }
-            rv_food_details_list.adapter = foodDetailsAdapter
+            rv_food_details_list?.adapter = foodDetailsAdapter
         }
 
         if (foodCartDetails?.cartTotalQuantity?:0 > 0) {
-            constraint_view_cart.visibility = View.VISIBLE
-            tv_item_count.text = "(${foodCartDetails?.cartTotalQuantity} ITEMS)"
+            constraint_view_cart?.visibility = View.VISIBLE
+            tv_item_count?.text = "(${foodCartDetails?.cartTotalQuantity} ITEMS)"
         } else {
-            constraint_view_cart.visibility = View.GONE
-            tv_item_count.text = ""
+            constraint_view_cart?.visibility = View.GONE
+            tv_item_count?.text = ""
         }
     }
 

@@ -12,20 +12,18 @@ import kotlinx.android.synthetic.main.item_food_cart.view.*
 class FoodCartAdapter(private val foodList: ArrayList<FoodDetails>,
                       private val onItemClick: ((String, Int) -> Unit)): RecyclerView.Adapter<FoodCartAdapter.FoodCartHolder>() {
 
+    private var showMore = false
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodCartHolder {
         return FoodCartHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_food_cart,parent,false))
     }
 
     override fun getItemCount(): Int {
-        return if (foodList.size > 2) {
-            2
-        } else {
-            foodList.size
-        }
+        return foodList.size
     }
 
     override fun onBindViewHolder(holder: FoodCartHolder, position: Int) {
-        if (position.plus(1) == 2) {
+        if (foodList.size > 2 && position.plus(1) == 2 && !showMore) {
             holder.itemView.tv_show_more.visibility = View.VISIBLE
         } else {
             holder.itemView.tv_show_more.visibility = View.GONE
@@ -44,9 +42,18 @@ class FoodCartAdapter(private val foodList: ArrayList<FoodDetails>,
         holder.itemView.tv_plus_food.setOnClickListener {
             onItemClick.invoke(FoodItemAction.ADD.name,position)
         }
+
+        holder.itemView.tv_show_more.setOnClickListener {
+            dataChanged()
+        }
     }
 
-    class FoodCartHolder(itemView:View): RecyclerView.ViewHolder(itemView) {
+    private fun dataChanged() {
+        showMore = true
+        notifyDataSetChanged()
+    }
+
+    inner class FoodCartHolder(itemView:View): RecyclerView.ViewHolder(itemView) {
 
         private fun addFoodVisible(foodDetails: FoodDetails) {
             itemView.tv_minus_food.visibility = View.VISIBLE
@@ -58,15 +65,25 @@ class FoodCartAdapter(private val foodList: ArrayList<FoodDetails>,
         }
 
         fun bindFoodItem(foodDetails: FoodDetails) {
-            if (foodDetails.foodQuantity > 0) {
-                itemView.constraint_food_item.visibility = View.VISIBLE
+
+            itemView.constraint_food_item.visibility = View.VISIBLE
+
+            if (adapterPosition.plus(1) <= 2 && !showMore) {
+
                 itemView.tv_food_name.text = foodDetails.foodName
                 itemView.tv_food_price.text = foodDetails.foodPrice.toString()
+                addFoodVisible(foodDetails)
+            } else if (showMore) {
 
+                itemView.tv_food_name.text = foodDetails.foodName
+                itemView.tv_food_price.text = foodDetails.foodPrice.toString()
                 addFoodVisible(foodDetails)
             } else {
-                itemView.constraint_food_item.visibility = View.GONE
+                itemView.constraint_food_item.visibility = View.INVISIBLE
             }
+
+
+
         }
 
     }
