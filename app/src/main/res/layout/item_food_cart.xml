@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraint_food_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_food_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_food_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/tv_food_price"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="@string/paneer_butter_masala" />
+
+        <ImageView
+            android:id="@+id/iv_ind_symbol"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:src="@drawable/ic_ind_ruppes"
+            android:layout_marginTop="4dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_food_name"
+            app:layout_constraintEnd_toStartOf="@+id/tv_food_price"
+            android:contentDescription="@string/indian_rupee_symbol" />
+
+        <TextView
+            android:id="@+id/tv_food_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/paneer_butter_masala_price"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/iv_ind_symbol"
+            app:layout_constraintTop_toBottomOf="@+id/tv_food_name" />
+
+        <RelativeLayout
+            android:id="@+id/rl_add_food"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rectangle_add_food"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp">
+
+            <TextView
+                android:id="@+id/tv_minus_food"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/minus"
+                android:layout_marginEnd="8dp"
+                android:textScaleX="2"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_food_quantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:textSize="16sp"
+                android:layout_toEndOf="@+id/tv_minus_food"
+                tools:text="1" />
+
+            <TextView
+                android:id="@+id/tv_plus_food"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/plus"
+                android:layout_marginStart="8dp"
+                android:textScaleX="1"
+                android:layout_toEndOf="@+id/tv_food_quantity"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_add_food"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:layout_centerInParent="true"
+                android:visibility="visible"
+                android:textSize="14sp" />
+        </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tv_show_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="@string/show_more"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraint_food_details" />
+</androidx.constraintlayout.widget.ConstraintLayout>

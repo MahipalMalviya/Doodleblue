@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/restaurant_fragment">
+
+    <fragment android:name="com.mahipal.doodleblue.mvvm.view.RestaurantFragment"
+        android:id="@+id/restaurant_fragment"
+        android:label="Restaurant"
+        tools:layout="@layout/activity_restaurant">
+
+        <action
+            android:id="@+id/action_restaurant_to_foodcart_fragment"
+            app:destination="@id/foodcart_fragment"
+            app:enterAnim="@anim/nav_default_enter_anim"/>
+    </fragment>
+
+    <fragment android:name="com.mahipal.doodleblue.mvvm.view.FoodCartFragment"
+        android:id="@+id/foodcart_fragment"
+        android:label="Cart"
+        tools:layout="@layout/activity_food_cart"/>
+</navigation>
